@@ -1,0 +1,38 @@
+﻿@model List<MovieWedsite.Models.Phim>
+
+@{
+    ViewBag.Title = "show_dsPhim_admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 style="text-align:center">DANH SÁCH THỂ LOẠI PHIM</h2>
+<table class="table phimTable">
+    <thead>
+        <tr>
+            <td>MÃ PHIM</td>
+            <td>TÊN PHIM</td>
+            <td>Mô tả</td>
+            <td>Tác Giả</td>
+            <td>Năm Sản Xuất</td>
+            <td>Ảnh Bìa</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.MaPhim</td>
+            <td>@item.TenPhim</td>
+            <td>@item.Mota</td>
+            <td>@item.TacGia</td>
+            <td>@item.NamSanXuat</td>
+            <td><img src="~/IMG_MOVIE/@item.Anhbia" width="100px"></td>
+            <td>@Html.ActionLink("edit", "edit_Phim")</td>
+            <td><a href="@Url.Action("delete_Phim", "PHIM", new { id = item.MaPhim })">Delete</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

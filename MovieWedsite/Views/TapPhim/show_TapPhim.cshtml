@@ -1,0 +1,47 @@
+﻿@model List<MovieWedsite.Models.TapPhim>
+
+@{
+    ViewBag.Title = "show_TapPhim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div style="display: flex; justify-content: center; align-items: center">
+            <video id="videoplayer1" src="" controls="true" loop style="max-width: 100%; max-height: 100%; width: 1110px; height: 468.28px;"></video>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>Danh sách tập phim</p>
+    <div class="d-flex flex-wrap" style="border:thin solid black">
+        @foreach (var item in Model)
+        {
+            <button class="btn btn-success m-2" onclick="loadVideo('@item.filePhim', '@item.MaPhim')">@item.TenTapPhim</button>
+        }
+    </div>
+</div>
+
+<script>
+    function loadVideo(episodeFileName, maPhim) {
+        var videoPlayer = document.getElementById('videoplayer1');
+        videoPlayer.src = '@Url.Content("~/Video/")' + episodeFileName;
+        videoPlayer.play();
+        submitForm(maPhim);
+    }
+
+    function submitForm(maPhim) {
+        $.ajax({
+            type: "POST",
+            url: '/api/Phim_API/IncrementViewCount?maPhim=' + maPhim,
+            success: function () {
+                console.log("View count incremented");
+            },
+            error: function () {
+                console.log("Error incrementing view count");
+            }
+        });
+    }
+</script>

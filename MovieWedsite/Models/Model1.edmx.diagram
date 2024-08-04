@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="95a0cb6b04b947959a9a5f1bb76037ef" Name="Diagram1">
+        <EntityTypeShape EntityType="MovieWebsiteModel.Phim" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieWebsiteModel.TapPhim" Width="1.5" PointX="3.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieWebsiteModel.theLoaiPhim" Width="1.5" PointX="11" PointY="4.125" />
+        <AssociationConnector Association="MovieWebsiteModel.fk_tapphim" />
+        <EntityTypeShape EntityType="MovieWebsiteModel.phim_theloaiphim" Width="1.5" PointX="5.375" PointY="4.375" />
+        <AssociationConnector Association="MovieWebsiteModel.fk_phim_theloai_phim" />
+        <AssociationConnector Association="MovieWebsiteModel.fk_phim_theloai" />
+        <EntityTypeShape EntityType="MovieWebsiteModel.account" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MovieWebsiteModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

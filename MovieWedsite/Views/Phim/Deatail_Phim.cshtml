@@ -1,0 +1,46 @@
+﻿@model MovieWedsite.Models.Phim
+
+@{
+    ViewBag.Title = "Deatail_Phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-3 shadow-sm bg-dark text-white">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="~/IMG_MOVIE/@Model.Anhbia" alt="@Model.TenPhim" class="card-img h-100">
+
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h2 class="card-title mb-3">@Model.TenPhim</h2>
+                            <p class="card-text mb-2"><strong>@Model.Mota</strong></p>
+                            <p class="card-text mb-2"><strong>Tác giả: @Model.TacGia</strong></p>
+                            <p class="card-text mb-2"><strong>Năm sản xuất: @(Model.NamSanXuat.HasValue ? Model.NamSanXuat.Value.ToString("dd/MM/yyyy") : "N/A")</strong></p>
+                            <p class="card-text mb-4">
+                                <strong>Đánh giá:</strong>
+                                <span class="text-warning" id="star-rating">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="fa fa-star-o" data-rating="@i"></i>
+                                    }
+                                </span>
+                                <span id="rating-value">0</span> / 5 (0 lượt)
+                            </p>
+                            <p>lượt xem: @Model.LuotXem</p>
+                            <a href="~/TapPhim/show_TapPhim/@Model.MaPhim" class="btn btn-danger w-25" onclick="submitForm('@Model.MaPhim')">Xem Phim</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,27 @@
+﻿@model List<MovieWedsite.Models.phim_theloaiphim>
+
+@{
+    ViewBag.Title = "show_phim_the_Loai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container my-5">
+    @foreach (var item in Model)
+    {
+        <h2 class="text-center mb-4">@item.theLoaiPhim.TenTheLoai</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+            <div class="col">
+                <div class="card h-100 shadow-sm bg-dark text-white position-relative">
+                    <img src="~/IMG_MOVIE/@item.Phim.Anhbia" class="card-img-top" alt="@item.Phim.TenPhim">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">@item.Phim.TenPhim</h5>
+                        <a href="~/PHIM/Deatail_Phim/@item.MaPhim" class="btn btn-primary">Xem Chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

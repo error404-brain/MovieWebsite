@@ -1,0 +1,48 @@
+﻿@model MovieWedsite.Models.Phim
+
+@{
+    ViewBag.Title = "deleted_phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div style="text-align: center">
+        <strong style="font-size: 30px">Delete Movie</strong>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <div class="form-container">
+                <form id="phimForm" onsubmit="submitForm(); return false;" style="border: thin solid black; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    <div class="form-group" style="text-align: center; align-items: center;">
+                        <label for="maPhim">Nhập ID phim muốn xóa:</label>
+                        <input type="text" id="maPhim" name="maPhim" class="form-control" style="width: auto; margin: 0 auto;" placeholder="Nhập id:" required><br />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+                <div id="resultMessage"></div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<script>
+    function submitForm() {
+        var maPhim = document.getElementById("maPhim").value;
+
+        $.ajax({
+            url: '/api/Phim_API/DeletedPhim?maPhim=' + maPhim,
+            type: 'DELETE',
+            success: function (response) {
+                $("#resultMessage").html('<div class="alert alert-success">Phim đã được xóa thành công!</div>');
+                $("#phimForm")[0].reset();
+            },
+            error: function (xhr, status, error) {
+                $("#resultMessage").html('<div class="alert alert-danger">Đã xảy ra lỗi: ' + xhr.responseText + '</div>');
+            } 
+        });
+    }
+</script>
