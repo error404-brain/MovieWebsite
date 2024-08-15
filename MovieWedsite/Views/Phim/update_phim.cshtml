@@ -1,0 +1,82 @@
+﻿@model MovieWedsite.Models.Phim
+
+@{
+    ViewBag.Title = "update_phim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        <h4 class="text-light" style="text-align:center">Update Phim</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="resultMessage"></div>
+                        @using (Html.BeginForm("UpdatePhim", "Phim", FormMethod.Post, new { enctype = "multipart/form-data", id = "phimForm" }))
+                        {
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.MaPhim, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.MaPhim, new { @class = "form-control", id = "MaPhim" })
+                            </div>
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.TenPhim, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.TenPhim, new { @class = "form-control", id = "TenPhim" })
+                            </div>
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.Anhbia, new { @class = "form-label" })
+                                <input type="file" name="Anhbia" class="form-control" id="Anhbia" />
+                            </div>
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.Mota, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.Mota, new { @class = "form-control", id = "Mota" })
+                            </div>
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.TacGia, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.TacGia, new { @class = "form-control", id = "TacGia" })
+                            </div>
+                            <div class="form-group mb-3 w-100">
+                                @Html.LabelFor(model => model.NamSanXuat, new { @class = "form-label" })
+                                <input type="date" name="NamSanXuat" class="form-control" id="NamSanXuat" />
+                            </div>
+                            <button type="button" class="btn btn-danger w-100" onclick="submitForm()">Update</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            var formData = new FormData(document.getElementById("phimForm"));
+            var maPhim = document.getElementById("MaPhim").value;
+
+            $.ajax({
+                url: '/api/Phim_API/UpdatePhim?maPhim=' + maPhim,
+                type: 'PUT',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (response) {
+                    $("#resultMessage").html('<div class="alert alert-success">Phim đã được update thành công!</div>');
+                    $("#phimForm")[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    $("#resultMessage").html('<div class="alert alert-danger">Đã xảy ra lỗi: ' + xhr.responseText + '</div>');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

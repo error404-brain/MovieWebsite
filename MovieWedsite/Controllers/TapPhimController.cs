@@ -26,6 +26,16 @@ namespace MovieWedsite.Controllers
 
         }
 
+        public ActionResult insert_tapPhim()
+        {
+            return View();
+        }
+
+        public ActionResult update_tapPhim()
+        {
+            return View();
+        }
+
 
     }
 }

@@ -19,8 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -145,6 +145,7 @@
     <Compile Include="Controllers\PhimController.cs" />
     <Compile Include="Controllers\Phim_APIController.cs" />
     <Compile Include="Controllers\TapPhimController.cs" />
+    <Compile Include="Controllers\TapPhim_APIController.cs" />
     <Compile Include="Controllers\TheLoaiPhimController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -322,6 +323,9 @@
     <Content Include="Views\Phim\insert_phim.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Phim\deleted_phim.cshtml" />
+    <Content Include="Views\Phim\update_phim.cshtml" />
+    <Content Include="Views\TapPhim\insert_tapPhim.cshtml" />
+    <Content Include="Views\TapPhim\update_tapPhim.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

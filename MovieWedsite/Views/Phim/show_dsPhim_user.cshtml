@@ -3,50 +3,81 @@
 @{
     ViewBag.Title = "show_dsPhim_user";
 }
+
+
 <div class="container my-5">
     <h2 class="text-center mb-4">DANH SÁCH PHIM</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach (var item in Model)
+    <div id="movie-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @for (int i = 0; i < Model.Count(); i++)
         {
-            <div class="col">
+            var item = Model[i];
+            // Ẩn các phim ngoài  8 bằng cách sử dụng lớp "d-none"
+            string displayClass;
+            if (i < 8)
+            {
+                displayClass = "";
+            }
+            else
+            {
+                displayClass = "hidden";
+            }
+            <div class="col movie-card @displayClass">
                 <div class="card h-100 shadow-sm text-white position-relative no-border" style="background-color:gray">
                     <div class="img-container">
                         <img src="~/IMG_MOVIE/@item.Anhbia" class="card-img-top" alt="@item.TenPhim">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">@item.TenPhim</h5>
-                        <a href="~/PHIM/Deatail_Phim/@item.MaPhim" class="btn btn-primary mt-auto">Xem Chi tiết</a>
+                        <a href="~/Phim/Deatail_Phim/@item.MaPhim" class="btn btn-primary mt-auto">Xem Chi tiết</a>
                     </div>
                 </div>
             </div>
         }
     </div>
+
+    <div class="text-center mt-4">
+        <a id="see_more" class="see_more btn btn-secondary" style="text-align: center; justify-content:center">xem tiếp</a>
+    </div>
 </div>
+    <script>
+        $(document).ready(function () {
+            $('#see_more').click(function () {
+                // Hiển thị tất cả các thẻ phim bị ẩn bằng cách loại bỏ lớp "d-none"
+                $('.movie-card.hidden').removeClass('hidden');
+                // Ẩn nút "Xem Thêm" sau khi bấm
+                $(this).hide();
+            });
+        });
+    </script>
 
+    <style>
 
-<style>
-
-    .img-container {
-        height: 400px; /* Tăng chiều cao để hình ảnh dài hơn */
-        width: 100%; /* Chiều rộng tự động theo thẻ bao */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài */
-    }
-
-        .img-container img {
-            height: 100%; /* Chiều cao 100% của thẻ bao */
-            width: auto; /* Chiều rộng tự động để giữ tỉ lệ */
-            object-fit: contain; /* Đảm bảo ảnh giữ nguyên tỉ lệ và nằm trung tâm */
+        .hidden
+        {
+              display:none;
         }
 
-    .no-border {
-        border: none; /* Bỏ khung */
-        box-shadow: none; /* Bỏ đổ bóng nếu có */
-    }
-
-        .no-border .card-body {
-            padding: 0; /* Bỏ khoảng cách bên trong nếu cần */
+        .img-container {
+            height: 400px; /* Tăng chiều cao để hình ảnh dài hơn */
+            width: 100%; /* Chiều rộng tự động theo thẻ bao */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài */
         }
-</style>
+
+            .img-container img {
+                height: 100%; /* Chiều cao 100% của thẻ bao */
+                width: auto; /* Chiều rộng tự động để giữ tỉ lệ */
+                object-fit: contain; /* Đảm bảo ảnh giữ nguyên tỉ lệ và nằm trung tâm */
+            }
+
+        .no-border {
+            border: none; /* Bỏ khung */
+            box-shadow: none; /* Bỏ đổ bóng nếu có */
+        }
+
+            .no-border .card-body {
+                padding: 0; /* Bỏ khoảng cách bên trong nếu cần */
+            }
+    </style>

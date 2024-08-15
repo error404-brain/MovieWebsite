@@ -1,0 +1,61 @@
+﻿@model MovieWedsite.Models.TapPhim
+
+@{
+    ViewBag.Title = "update_tapPhim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h4 >Update Tập Phim</h4>
+                </div>
+                <div class="card-body">
+                    <div id="resultMessage"></div>
+                    @using (Html.BeginForm("update_tapPhim", "TapPhim", FormMethod.Post,new { enctype = "multipart/form-data", id = "phimForm" }))
+                    {
+                        <div class="form-group mb-3 w-100">
+                            @Html.LabelFor(model => model.MaPhim, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.MaPhim, new { @class = "form-control", id = "MaPhim" })
+                        </div>
+                        <div class="form-group mb-3 w-100">
+                            @Html.LabelFor(model => model.TenTapPhim, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.TenTapPhim, new { @class = "form-control", id = "TenTapPhim" })
+                        </div>
+                        <diV class="form-group mb-3 w-100">
+                            @Html.LabelFor(model => model.filePhim, new { @class = "form-label" })
+                            <input type="file" id="filePhim" name="filePhim" />
+                        </diV>
+                        <button type="button" class="btn btn-danger w-100" onclick="submitForm()">update</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function submitForm() {
+        var formData = new FormData(document.getElementById("phimForm"));
+        var maTapPhim = document.getElementById("maTapPhim");
+        $.ajax({
+            url: '/api/TapPhim_API/update_tapphim?maTapPhim=' + maTapPhim,
+            type: 'PUT',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function(respone)
+            {
+                $("#resultMessage").html('<div class="alert alert-success">Tập phim đã được update thành công!</div>');
+                $("#phimForm")[0].reset();
+            },
+            error: function(respone)
+            {
+                $("#resultMessage").html('<div class="alert alert-danger">Đã xảy ra lỗi: ' + xhr.responseText + '</div>');
+            }
+        })
+        
+    }
+</script>

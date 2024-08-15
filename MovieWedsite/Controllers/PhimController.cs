@@ -52,7 +52,7 @@ namespace MovieWedsite.Controllers
 
         //insert using API_Phim
         public ActionResult insert_phim()
-        {
+        {                    
             return View();
         }
 
@@ -63,7 +63,14 @@ namespace MovieWedsite.Controllers
             return View();
         }
 
+        //update phim issing API
+        public ActionResult update_phim()
+        {
+            return View();
+        }
 
+
+        
 
     }
 }

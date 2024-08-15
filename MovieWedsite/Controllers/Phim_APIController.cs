@@ -76,6 +76,48 @@ namespace MovieWedsite.Controllers
             return Ok(phims);
         }
 
+        [HttpPut]
+        public async Task<IHttpActionResult> Update_PhimAsync(string maPhim)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                return StatusCode(HttpStatusCode.UnsupportedMediaType);
+
+            var root = HttpContext.Current.Server.MapPath("~/IMG_MOVIE");
+            var provider = new MultipartFormDataStreamProvider(root);
+            await Request.Content.ReadAsMultipartAsync(provider);
+            var existingPhim = db.Phims.FirstOrDefault(p => p.MaPhim == maPhim);
+            if (existingPhim == null)
+            {
+                return NotFound();
+            }
+            existingPhim.TenPhim = provider.FormData["TenPhim"];
+            existingPhim.Mota = provider.FormData["Mota"];
+            existingPhim.TacGia = provider.FormData["TacGia"];
+            existingPhim.NamSanXuat = DateTime.Parse(provider.FormData["NamSanXuat"]);
+            var fileData = provider.FileData.FirstOrDefault();
+            if (fileData != null)
+            {
+                var fileName = Path.GetFileName(fileData.Headers.ContentDisposition.FileName.Trim('"'));
+                var filePath = Path.Combine(root, fileName);
+
+                // Kiểm tra và đổi tên file nếu file đã tồn tại
+                if (File.Exists(filePath))
+                {
+                    return Content(HttpStatusCode.Conflict, "File already exists. Please provide a different name.");
+                }
+                else
+                {
+                    existingPhim.Anhbia = fileName;
+                }
+
+                File.Move(fileData.LocalFileName, filePath);
+            }
+            db.SaveChanges();
+
+            return Ok(existingPhim);
+        }
+        
+
         [HttpPost]
         public IHttpActionResult IncrementViewCount(string maPhim)
         {
